@@ -1,3 +1,16 @@
-Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 19:29:22) [MSC v.1916 32 bit (Intel)] on win32
-Type "help", "copyright", "credits" or "license()" for more information.
->>> 
+# Interactive Dictionary
+# Created by Charles Cromer
+# Created on 12/18/2019
+# Last Modified on 12/18/2019
+# This is an interactive dictionary that will ask the user for a word to define
+# and print out the resulting definition(s)
+
+print('\n\n\n\n\n\n\n\nInteractive Dictionary\n')
+print('This program is an interactive dictionary that will allow you to')
+print('enter a word you wish to have defined. It will then produce the')
+print('definition(s).')
+
+
+
+
+
