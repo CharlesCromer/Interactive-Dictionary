@@ -7,20 +7,20 @@
 
 import json
 
+#loads data.json file
+data = json.load(open('data.json'))
+
 # Welcome message
 def welcome():
     print('\n\n\n\n\n\n\n\nInteractive Dictionary\n')
     print('This program is an interactive dictionary that will allow you to')
     print('enter a word you wish to have defined. It will then produce the')
-    print('definition(s).')
+    print('definition(s).\n\n')
 
 def translate(word):
-    return data(word)
+    return data[word]
 
 welcome()
-
-#loads data.json file
-data = json.load(open('data.json'))
 
 word = input('Enter Word: ')
 print(translate(word))
