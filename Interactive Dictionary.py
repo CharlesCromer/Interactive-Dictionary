@@ -6,6 +6,8 @@
 # and print out the resulting definition(s)
 
 import json
+from difflib import get_close_matches
+
 
 def main():
     welcome()
@@ -29,9 +31,17 @@ def translate(word):
     word = word.lower()
     if word in data:    #validates word is in .json file
         return data[word]
-    else:
-        return "\nThe word doesn't exist. Please double check it."
+    elif len(get_close_matches(word, data.keys())) > 0:
+        similar = input("\nDid you mean [ %s ] instead? [Y/N]\n" % get_close_matches(word, data.keys())[0]).upper()
 
+        while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
+            similar = input("\nDid you mean [ %s ] instead? [Y/N]\n" % get_close_matches(word, data.keys())[0]).upper()
+
+        if similar == 'Y':
+            return data[get_close_matches(word, data.keys())[0]]
+        else:
+            return "\nThe word doesn't exist. Please double check it.\n"
+    else:
+        return "\nThe word doesn't exist. Please double check it.\n"
 
 main()
-
