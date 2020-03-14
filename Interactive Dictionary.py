@@ -35,15 +35,23 @@ def welcome():
 
 def translate(word):
     data = json.load(open("data.json"))  # Loads dictionary into 'data'
-    word = word.lower()
-    if word in data:  # validates word is in .json file
+    if word.lower() in data:  # validates word is in .json file
         definition = data[word]
     elif word.title() in data:  # Checks for proper nouns
         definition = data[word.title()]
-    elif len(get_close_matches(word, data.keys())) > 0:
+    elif len(get_close_matches(word.lower(), data.keys())) > 0 or len(get_close_matches(word.title(), data.keys())) > 0:
+        definition = similarWord(data, word)
+    else:
+        definition = "\nThe word doesn't exist. Please double check it.\n"
+    showOutput(definition)
+
+def similarWord(data, word):
+    if word.islower():
         similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word, data.keys())[0]).upper()
+
         while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
             similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word, data.keys())[0]).upper()
+
         if similar == 'Y':
             definition = data[get_close_matches(word, data.keys())[0]]
         elif similar == 'N':
@@ -59,9 +67,29 @@ def translate(word):
                     definition = "\nThe word doesn't exist. Please double check it.\n"
         else:
             definition = "\nThe word doesn't exist. Please double check it.\n"
-    else:
-        definition = "\nThe word doesn't exist. Please double check it.\n"
-    showOutput(definition)
+    elif word.istitle():
+        similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.title(), data.keys())[0]).upper()
+
+        while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
+            similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.title(), data.keys())[0]).upper()
+
+        if similar == 'Y':
+            definition = data[get_close_matches(word.title(), data.keys())[0]]
+        elif similar == 'N':
+            if len(get_close_matches(word.lower(), data.keys())) > 0:
+                similar = input(
+                    "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.lower(), data.keys())[0]).upper()
+                while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
+                    similar = input(
+                        "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.lower(), data.keys())[
+                            0]).upper()
+                if similar == 'Y':
+                    definition = data[get_close_matches(word.lower(), data.keys())[0]]
+                else:
+                    definition = "\nThe word doesn't exist. Please double check it.\n"
+        else:
+            definition = "\nThe word doesn't exist. Please double check it.\n"
+    return definition
 
 
 def showOutput(definition):
