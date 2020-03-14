@@ -39,7 +39,11 @@ def translate(word):
         definition = data[word]
     elif word.title() in data:  # Checks for proper nouns
         definition = data[word.title()]
-    elif len(get_close_matches(word.lower(), data.keys())) > 0 or len(get_close_matches(word.title(), data.keys())) > 0:
+    elif word.upper() in data:  # Checks for Acronyms
+        definition = data[word.upper()]
+    elif len(get_close_matches(word.lower(), data.keys())) > 0\
+            or len(get_close_matches(word.title(), data.keys())) > 0\
+            or len(get_close_matches(world.upper(), data.keys())) > 0:
         definition = similarWord(data, word)
     else:
         definition = "\nThe word doesn't exist. Please double check it.\n"
@@ -47,11 +51,11 @@ def translate(word):
 
 
 '''
-The following function similarWord() will take the user's input, see if it was entered in with a cap or not.
-# It will then find the closest match that matches its case ie. Apple or apple.
-# If will ask the user if the word that matches the pattern and case the closest is what they intended
-# If not it will find the closest matching word that doesn't match case if there is one.
-# Example: If you enter Pariss, it will first see if you meant Paris, if not it will see if you meant piss.
+The following function similarWord() will take the user's input, see if it was entered in with a cap or not. 
+It will then find the closest match that matches its case ie. Apple or apple.
+If will ask the user if the word that matches the pattern and case the closest is what they intended
+If not it will find the closest matching word that doesn't match case if there is one.
+Example: If you enter Pariss, it will first see if you meant Paris, if not it will see if you meant piss.
 '''
 def similarWord(data, word):
     if word.islower():
@@ -97,6 +101,19 @@ def similarWord(data, word):
                     definition = "\nThe word doesn't exist. Please double check it.\n"
         else:
             definition = "\nThe word doesn't exist. Please double check it.\n"
+    elif word.isupper():
+        if len(get_close_matches(word.upper(), data.keys())) > 0:
+            similar = input(
+                "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.upper(), data.keys())[0]).upper()
+            while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
+                similar = input(
+                    "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.upper(), data.keys())[
+                        0]).upper()
+            if similar == 'Y':
+                definition = data[get_close_matches(word.upper(), data.keys())[0]]
+            else:
+                definition = "\nThe word doesn't exist. Please double check it.\n"
+
     return definition
 
 
