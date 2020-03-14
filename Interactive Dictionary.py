@@ -43,7 +43,7 @@ def translate(word):
         definition = data[word.upper()]
     elif len(get_close_matches(word.lower(), data.keys())) > 0\
             or len(get_close_matches(word.title(), data.keys())) > 0\
-            or len(get_close_matches(world.upper(), data.keys())) > 0:
+            or len(get_close_matches(word.upper(), data.keys())) > 0:
         definition = similarWord(data, word)
     else:
         definition = "\nThe word doesn't exist. Please double check it.\n"
