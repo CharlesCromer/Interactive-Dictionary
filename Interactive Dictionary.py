@@ -39,7 +39,11 @@ def translate(word):
         definition = data[word]
     elif word.title() in data:  # Checks for proper nouns
         definition = data[word.title()]
-    elif len(get_close_matches(word.lower(), data.keys())) > 0 or len(get_close_matches(word.title(), data.keys())) > 0:
+    elif word.upper() in data:  # Checks for Acronyms
+        definition = data[word.upper()]
+    elif len(get_close_matches(word.lower(), data.keys())) > 0\
+            or len(get_close_matches(word.title(), data.keys())) > 0\
+            or len(get_close_matches(world.upper(), data.keys())) > 0:
         definition = similarWord(data, word)
     else:
         definition = "\nThe word doesn't exist. Please double check it.\n"
@@ -97,6 +101,19 @@ def similarWord(data, word):
                     definition = "\nThe word doesn't exist. Please double check it.\n"
         else:
             definition = "\nThe word doesn't exist. Please double check it.\n"
+    elif word.isupper():
+        if len(get_close_matches(word.upper(), data.keys())) > 0:
+            similar = input(
+                "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.upper(), data.keys())[0]).upper()
+            while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
+                similar = input(
+                    "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.upper(), data.keys())[
+                        0]).upper()
+            if similar == 'Y':
+                definition = data[get_close_matches(word.upper(), data.keys())[0]]
+            else:
+                definition = "\nThe word doesn't exist. Please double check it.\n"
+
     return definition
 
 
