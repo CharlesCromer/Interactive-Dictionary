@@ -8,27 +8,21 @@
 import json
 from difflib import get_close_matches
 
+
 def main():
     welcome()
-    runAgain = 'Y'  #Sets flag for "Run Again?" loop
-    while runAgain.upper() == 'Y':  #Run Again loop
-        word = input('Enter Word: ')
-
-        while not word.isalpha() or word == '':
-            word = input('Error, Please enter a word: ')
-
-        definition = (translate(word))
-        linenum = 1
-
-        if type(definition) == list:
-            for item in definition:
-                print(str(linenum) + ':', item)
-                linenum += 1
-        else:
-            print(definition)
-
-        runAgain = input('\nWould you like to define another word?  [Y/N]\n' )
+    runAgain = 'Y'  # Sets flag for "Run Again?" loop
+    while runAgain.upper() == 'Y':  # Run Again loop
+        getInput()
+        runAgain = input('\nWould you like to define another word?  [Y/N]\n')
     print('Thank you for using the interactive dictionary!')
+
+
+def getInput():
+    word = input('Enter Word: ')
+    while not word.isalpha() or word == '':
+        word = input('Error, Please enter a word: ')
+    translate(word)
 
 
 # Welcome message
@@ -40,10 +34,10 @@ def welcome():
 
 
 def translate(word):
-    data = json.load(open("data.json"))     # Loads dictionary into 'data'
+    data = json.load(open("data.json"))  # Loads dictionary into 'data'
     word = word.lower()
-    if word in data:    #validates word is in .json file
-        return data[word]
+    if word in data:  # validates word is in .json file
+        definition = data[word]
     elif len(get_close_matches(word, data.keys())) > 0:
         similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word, data.keys())[0]).upper()
 
@@ -51,10 +45,22 @@ def translate(word):
             similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word, data.keys())[0]).upper()
 
         if similar == 'Y':
-            return data[get_close_matches(word, data.keys())[0]]
+            definition = data[get_close_matches(word, data.keys())[0]]
         else:
-            return "\nThe word doesn't exist. Please double check it.\n"
+            definition = "\nThe word doesn't exist. Please double check it.\n"
     else:
-        return "\nThe word doesn't exist. Please double check it.\n"
+        definition = "\nThe word doesn't exist. Please double check it.\n"
+    showOutput(definition)
+
+
+def showOutput(definition):
+    linenum = 1
+    if type(definition) == list:
+        for item in definition:
+            print(str(linenum) + ':', item)
+            linenum += 1
+    else:
+        print(definition)
+
 
 main()
