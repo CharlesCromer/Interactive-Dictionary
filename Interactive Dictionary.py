@@ -8,7 +8,7 @@
 import json
 
 #loads data.json file
-data = json.load(open('data.json'))
+data = json.load(open("data.json"))
 
 # Welcome message
 def welcome():
@@ -18,6 +18,7 @@ def welcome():
     print('definition(s).\n\n')
 
 def translate(word):
+    if word in
     return data[word]
 
 welcome()
