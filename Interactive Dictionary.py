@@ -46,6 +46,17 @@ def translate(word):
             similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word, data.keys())[0]).upper()
         if similar == 'Y':
             definition = data[get_close_matches(word, data.keys())[0]]
+        elif similar == 'N':
+            if len(get_close_matches(word.title(), data.keys())) > 0:
+                similar = input(
+                    "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.title(), data.keys())[0]).upper()
+                while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
+                    similar = input(
+                        "\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word.title(), data.keys())[0]).upper()
+                if similar == 'Y':
+                    definition = data[get_close_matches(word.title(), data.keys())[0]]
+                else:
+                    definition = "\nThe word doesn't exist. Please double check it.\n"
         else:
             definition = "\nThe word doesn't exist. Please double check it.\n"
     else:
