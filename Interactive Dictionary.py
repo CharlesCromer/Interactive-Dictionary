@@ -7,8 +7,15 @@
 
 import json
 
-#loads data.json file
-data = json.load(open("data.json"))
+def main():
+    welcome()
+    runAgain = 'Y'  #Sets flag for "Run Again?" loop
+    while runAgain.upper() == 'Y':  #Run Again loop
+        word = input('Enter Word: ')
+        print(translate(word))
+        runAgain = input('\nWould you like to define another word?  [Y/N]\n' )
+    print('Thank you for using the interactive dictionary!')
+
 
 # Welcome message
 def welcome():
@@ -18,10 +25,13 @@ def welcome():
     print('definition(s).\n\n')
 
 def translate(word):
-    if word in
-    return data[word]
+    data = json.load(open("data.json"))     # Loads dictionary into 'data'
+    word = word.lower()
+    if word in data:    #validates word is in .json file
+        return data[word]
+    else:
+        return "\nThe word doesn't exist. Please double check it."
 
-welcome()
 
-word = input('Enter Word: ')
-print(translate(word))
+main()
+
