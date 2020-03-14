@@ -38,12 +38,12 @@ def translate(word):
     word = word.lower()
     if word in data:  # validates word is in .json file
         definition = data[word]
+    elif word.title() in data:  # Checks for proper nouns
+        definition = data[word.title()]
     elif len(get_close_matches(word, data.keys())) > 0:
         similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word, data.keys())[0]).upper()
-
         while similar != 'Y' and similar != 'N':  # Validation Loop for y/n
             similar = input("\nDid you mean [ %s ] instead? [Y/N]" % get_close_matches(word, data.keys())[0]).upper()
-
         if similar == 'Y':
             definition = data[get_close_matches(word, data.keys())[0]]
         else:
