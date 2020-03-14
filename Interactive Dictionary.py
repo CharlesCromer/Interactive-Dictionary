@@ -19,9 +19,14 @@ def main():
 
         definition = (translate(word))
         linenum = 1
-        for item in definition:
-            print(str(linenum) + ':', item)
-            linenum += 1
+
+        if type(definition) == list:
+            for item in definition:
+                print(str(linenum) + ':', item)
+                linenum += 1
+        else:
+            print(definition)
+
         runAgain = input('\nWould you like to define another word?  [Y/N]\n' )
     print('Thank you for using the interactive dictionary!')
 
@@ -32,6 +37,7 @@ def welcome():
     print('This program is an interactive dictionary that will allow you to')
     print('enter a word you wish to have defined. It will then produce the')
     print('definition(s).\n\n')
+
 
 def translate(word):
     data = json.load(open("data.json"))     # Loads dictionary into 'data'
@@ -47,8 +53,8 @@ def translate(word):
         if similar == 'Y':
             return data[get_close_matches(word, data.keys())[0]]
         else:
-            print("\nThe word doesn't exist. Please double check it.\n")
+            return "\nThe word doesn't exist. Please double check it.\n"
     else:
-        print("\nThe word doesn't exist. Please double check it.\n")
+        return "\nThe word doesn't exist. Please double check it.\n"
 
 main()
