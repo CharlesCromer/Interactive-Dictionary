@@ -47,11 +47,11 @@ def translate(word):
 
 
 '''
-The following function similarWord() will take the user's input, see if it was entered in with a cap or not.
-# It will then find the closest match that matches its case ie. Apple or apple.
-# If will ask the user if the word that matches the pattern and case the closest is what they intended
-# If not it will find the closest matching word that doesn't match case if there is one.
-# Example: If you enter Pariss, it will first see if you meant Paris, if not it will see if you meant piss.
+The following function similarWord() will take the user's input, see if it was entered in with a cap or not. 
+It will then find the closest match that matches its case ie. Apple or apple.
+If will ask the user if the word that matches the pattern and case the closest is what they intended
+If not it will find the closest matching word that doesn't match case if there is one.
+Example: If you enter Pariss, it will first see if you meant Paris, if not it will see if you meant piss.
 '''
 def similarWord(data, word):
     if word.islower():
