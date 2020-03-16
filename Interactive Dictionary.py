@@ -6,8 +6,16 @@
 # and print out the resulting definition(s)
 
 import json
+import mysql.connector
 from difflib import get_close_matches
 
+def dBase():
+    con - mysql.connector.connect(
+        user = "ardit700_student",
+        password = 'ardit00_student',
+        host = '100.167.148.122',
+        database = 'ardit700_pm1database'
+    )
 
 def main():
     welcome()
