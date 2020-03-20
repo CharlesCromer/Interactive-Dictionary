@@ -9,19 +9,19 @@ import json
 import mysql.connector
 from difflib import get_close_matches
 
-
-def dBase():
-    con = mysql.connector.connect(
+con = mysql.connector.connect(
         user="ardit700_student",
         password="ardit700_student",
         host="108.167.140.122",
         database="ardit700_pm1database")
 
-    cursor = con.cursor()
+cursor = con.cursor()
 
+def dBase():
     query = cursor.execute("SELECT * FROM Dictionary")
     results = cursor.fetchall()
     print(results)
+
 
 
 def main():
@@ -49,20 +49,24 @@ def welcome():
 
 
 def translate(word):
-    data = json.load(open("data.json"))  # Loads dictionary into 'data'
-    if word.lower() in data:  # validates word is in .json file
-        definition = data[word.lower()]
-    elif word.title() in data:  # Checks for proper nouns
-        definition = data[word.title()]
-    elif word.upper() in data:  # Checks for Acronyms
-        definition = data[word.upper()]
-    elif len(get_close_matches(word.lower(), data.keys())) > 0 \
-            or len(get_close_matches(word.title(), data.keys())) > 0 \
-            or len(get_close_matches(word.upper(), data.keys())) > 0:
-        definition = similarWord(data, word)
-    else:
-        definition = "\nThe word doesn't exist. Please double check it.\n"
-    showOutput(definition)
+    cursor.execute("SELECT * FROM Dictionary WHERE Expression = '{}'".format(word))
+    results = cursor.fetchall()
+    print(results)
+
+#    data = json.load(open("data.json"))  # Loads dictionary into 'data'
+#    if word.lower() in data:  # validates word is in .json file
+#        definition = data[word.lower()]
+#    elif word.title() in data:  # Checks for proper nouns
+#        definition = data[word.title()]
+#    elif word.upper() in data:  # Checks for Acronyms
+#        definition = data[word.upper()]
+#    elif len(get_close_matches(word.lower(), data.keys())) > 0 \
+#            or len(get_close_matches(word.title(), data.keys())) > 0 \
+#            or len(get_close_matches(word.upper(), data.keys())) > 0:
+#        definition = similarWord(data, word)
+#    else:
+#        definition = "\nThe word doesn't exist. Please double check it.\n"
+#    showOutput(definition)
 
 
 '''
