@@ -4,15 +4,7 @@
 # Last Modified on 3/24/2020
 
 import mysql.connector
-#Begin GUI implimentation
-
-con = mysql.connector.connect(
-        user="ardit700_student",
-        password="ardit700_student",
-        host="108.167.140.122",
-        database="ardit700_pm1database")
-
-cursor = con.cursor()
+from tkinter import *
 
 
 def main():
@@ -23,6 +15,16 @@ def main():
         runAgain = input('\nWould you like to define another word?  [Y/N]\n')
     print('Thank you for using the interactive dictionary!')
 
+
+def GUI():
+    window = Tk()
+    b1 = Button(window, text="Execute")
+    b1.grid(row = 0, column = 0)
+    e1 = Entry(window)
+    e1 = e1.grid(row=0, column = 1)
+    t1 = Text(window, height = 1, width = 20)
+    t1 = t1.grid(row=0, column=2)
+    window.mainloop()
 
 def getInput():
     word = input('Enter Word: ')
@@ -39,6 +41,12 @@ def welcome():
 
 
 def translate(word):
+    con = mysql.connector.connect(
+            user="ardit700_student",
+            password="ardit700_student",
+            host="108.167.140.122",
+            database="ardit700_pm1database")
+    cursor = con.cursor()
     cursor.execute("SELECT * FROM Dictionary WHERE Expression = '{}'".format(word))
     results = cursor.fetchall()
     if len(results) > 0: # Checks to make sure some result came back
@@ -52,3 +60,4 @@ def showOutput(definition):
 
 
 main()
+GUI()
