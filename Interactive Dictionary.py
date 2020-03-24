@@ -48,11 +48,7 @@ def translate(word):
     if len(results) > 0:
         showOutput(results)
     else:
-<<<<<<< HEAD
-        print('No such word as {}'.format(word))
-=======
         print('I am sorry, no such word as [ {} ]'.format(word))
->>>>>>> Dev
 
 
 def showOutput(definition):
