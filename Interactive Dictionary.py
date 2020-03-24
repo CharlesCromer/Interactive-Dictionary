@@ -47,10 +47,8 @@ def translate(word):
     results = cursor.fetchall()
     if len(results) > 0:
         showOutput(results)
-        #print(results[0][1])
-        #print(results[1][1])
     else:
-        print('I am sorry, no such word as {}'.format(word))
+        print('I am sorry, no such word as [ {} ]'.format(word))
 
 
 def showOutput(definition):
