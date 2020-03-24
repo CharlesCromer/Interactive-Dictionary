@@ -1,13 +1,9 @@
 # Interactive Dictionary
 # Created by Charles Cromer
 # Created on 12/18/2019
-# Last Modified on 3/14/2020
-# This is an interactive dictionary that will ask the user for a word to define
-# and print out the resulting definition(s)
-
+# Last Modified on 3/24/2020
 
 import mysql.connector
-from difflib import get_close_matches
 
 con = mysql.connector.connect(
         user="ardit700_student",
@@ -29,12 +25,11 @@ def main():
 
 def getInput():
     word = input('Enter Word: ')
-    while not word.isalpha() or word == '':
+    while not word.isalpha() or word == '':  # Validates user input
         word = input('Error, Please enter a word: ')
     translate(word)
 
 
-# Welcome message
 def welcome():
     print('\n\n\n\n\n\n\n\nInteractive Dictionary\n')
     print('This program is an interactive dictionary that will allow you to')
@@ -45,15 +40,13 @@ def welcome():
 def translate(word):
     cursor.execute("SELECT * FROM Dictionary WHERE Expression = '{}'".format(word))
     results = cursor.fetchall()
-    if len(results) > 0:
+    if len(results) > 0: # Checks to make sure some result came back
         showOutput(results)
     else:
-        print('No such word as {}'.format(word))
-
         print('I am sorry, no such word as [ {} ]'.format(word))
 
 def showOutput(definition):
-    for num in range(len(definition)):
+    for num in range(len(definition)): # Cycles through each definition
         print(str(num+1)+':', definition[num][1])
 
 
