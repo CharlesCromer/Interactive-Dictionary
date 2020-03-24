@@ -4,6 +4,7 @@
 # Last Modified on 3/24/2020
 
 import mysql.connector
+#Begin GUI implimentation
 
 con = mysql.connector.connect(
         user="ardit700_student",
