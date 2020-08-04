@@ -1,7 +1,7 @@
 # Interactive Dictionary
 # Created by Charles Cromer
 # Created on 12/18/2019
-# Last Modified on 3/24/2020
+# Last Modified on 8/04/2020
 
 import mysql.connector
 
